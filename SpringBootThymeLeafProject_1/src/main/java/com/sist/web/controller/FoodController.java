@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /*
  *   1. 교재 
@@ -162,6 +163,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.*;
 import com.sist.web.service.*;
 import com.sist.web.vo.*;
+
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 @Controller
 public class FoodController {
    @Autowired
@@ -214,7 +218,42 @@ public class FoodController {
 	   model.addAttribute("startPage", startPage);
 	   model.addAttribute("endPage", endPage);
 	   
-	   return "food/list";
+	   return "food/list"; // forward 
+   }
+   @GetMapping("/food/detail_before")
+   public String food_detail_before(@RequestParam(name="fno",required = false) int fno,
+		  HttpServletResponse response,RedirectAttributes ra)
+   {
+	   // response = Cookie 전송 , 다운로드 
+	   Cookie cookie=new Cookie("food_"+fno,String.valueOf(fno));
+	   // cookie는 저장값 => String
+	   //1. 저장 위치 지정 
+	   cookie.setPath("/");
+	   //2. 저장 시간 
+	   cookie.setMaxAge(60*60*24);
+	   //3. 해당 브라우저로 전송 
+	   response.addCookie(cookie);
+	   // request = cookie 목록
+	   ra.addAttribute("fno", fno);
+	   // redirect에서 다른 파일로 값을 전송 : RedirectAttributes
+	   // forward : Model 
+	   return "redirect:/food/detail"; // sendRedirect
+	   // 강제로 서버에서 이동 
+	   /*
+	    *                 | detail
+	    *   _ok insert/update/delete 
+	    *         |             |
+	    *         ---------------
+	    *             | list
+	    */
+   }
+   @GetMapping("/food/detail")
+   public String food_detail(@RequestParam(name="fno",required = false) int fno,
+		   Model model)
+   {
+	   // => 1. hit증가 
+	   // => 2. 상세보기 데이터 읽기 
+	   return "food/detail"; // 화면을 바로 보여주는 경우 
    }
 }
 
