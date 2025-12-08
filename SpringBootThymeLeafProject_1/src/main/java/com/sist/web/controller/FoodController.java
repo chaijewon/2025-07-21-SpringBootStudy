@@ -160,6 +160,64 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  *                                    Vue / React 
  *                    ---------------------------------------  
  */
+/*
+ *    입문 (학원) 
+ *    ---------
+ *     1) 자바 
+ *        = 연산자 / 제어문 / 변수 
+ *        = 객체지향 프로그램 
+ *          = 특성 (캡슐화 , 상속 | 포함 , 다형성(오버라이딩) 
+ *          = 클래스와 객체
+ *          = 인터페이스 / 추상 클래스 
+ *        = 예외처리 
+ *        = 기본 라이브러리 
+ *          java.util / java.io / java.lang / java.sql / java.net
+ *             |            |        |          |           |
+ *                                                         URL
+ *                                                        URLEncoder 
+ *                                            Connection
+ *                                            ResultSet
+ *                                            PreparedStatement
+ *                                  String 
+ *                                  Object
+ *                                  Wrapper
+ *                                  ------- Integer,Double,Boolean
+ *                        FileReader
+ *                        FileWriter
+ *                        BufferedReader
+ *                        BufferedWriter
+ *           Collection (List,Set,Map) 
+ *           *** 어노테이션 / JSON 파싱 / XML 파싱 
+ *      2) 오라클 
+ *         SQL문장 
+ *          |
+ *      ----------------------------
+ *      |        |         |       |
+ *     *DQL      *DML      DDL     *TCL
+ *    -----    -----     -----   ----- COMMIT / ROLLBACK
+ *    SELECT   INSERT    CREATE
+ *             UPDATE    ALTER 
+ *             DELETE    DROP
+ *                       TRUNCATE
+ *                       RENAME
+ *      => SEQUENCE / JOIN / SUBQUERY / View
+ *      
+ *     3) WEB
+ *        HTML / CSS
+ *        JavaScript 
+ *        ----------- Jquery / Vue / React
+ *     4) Spring / Spring-Boot 
+ *          |          |
+ *          ------------
+ *               |
+ *              MVC (DI / AOP / ORM (Transaction))
+ *     5) CI/CD => 우분투 명령어 
+ *                      | Git Action
+ *                   -------------
+ *                   |           |
+ *                 Docker , Docker-Compose , MiniKube , Jenkins
+ *     ---------------------------------------------------------  
+ */
 import java.util.*;
 import com.sist.web.service.*;
 import com.sist.web.vo.*;
@@ -252,7 +310,20 @@ public class FoodController {
 		   Model model)
    {
 	   // => 1. hit증가 
-	   // => 2. 상세보기 데이터 읽기 
+	   // => 2. 상세보기 데이터 읽기
+	   FoodVO vo=fService.foodDetailData(fno);
+	   model.addAttribute("vo", vo);
+	   /////////////////////////////
+	   List<FoodVO> list=fService.foodTop10();
+	   for(FoodVO fvo:list)
+	   {
+		   String addr=fvo.getAddress();
+		   addr=addr.substring(0,addr.indexOf(" "));
+		   fvo.setAddress(addr.trim());
+	   }
+	   model.addAttribute("list", list);
+	   ////////////////////////////// AOP => 공통 적용 소스 : 공통 모듈 
+	   ///
 	   return "food/detail"; // 화면을 바로 보여주는 경우 
    }
 }

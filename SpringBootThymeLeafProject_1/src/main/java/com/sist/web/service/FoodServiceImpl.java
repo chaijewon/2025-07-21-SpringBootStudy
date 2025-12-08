@@ -22,4 +22,17 @@ public class FoodServiceImpl implements FoodService{
 		return mapper.foodTotalPage();
 	}
 
+	@Override
+	public FoodVO foodDetailData(int fno) {
+		// TODO Auto-generated method stub
+		mapper.foodHitIncrement(fno);
+		return mapper.foodDetailData(fno);
+	}
+
+	@Override
+	public List<FoodVO> foodTop10() {
+		// TODO Auto-generated method stub
+		return mapper.foodTop10();
+	}
+
 }

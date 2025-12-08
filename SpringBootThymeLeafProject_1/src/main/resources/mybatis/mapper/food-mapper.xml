@@ -25,4 +25,22 @@
      SELECT CEIL(COUNT(*)/12.0) FROM menupan_food
    </select>
    <!-- 상세보기  -->
+   <update id="foodHitIncrement" parameterType="int">
+     UPDATE menupan_food SET
+     hit=hit+1
+     WHERE fno=#{fno}
+   </update>
+   <select id="foodDetailData" resultType="com.sist.web.vo.FoodVO"
+    parameterType="int">
+     SELECT fno,name,poster,time,address,phone,theme,
+            parking,score,content,price,type
+     FROM menupan_food
+     WHERE fno=#{fno} 
+   </select>
+   <select id="foodTop10" resultType="com.sist.web.vo.FoodVO">
+     SELECT fno,poster,name,address,phone,type,rownum
+     FROM (SELECT fno,poster,name,address,type,phone 
+     FROM menupan_food ORDER BY hit DESC)
+     WHERE rownum&lt;=10
+   </select>
 </mapper>

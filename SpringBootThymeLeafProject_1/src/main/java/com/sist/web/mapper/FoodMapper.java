@@ -25,4 +25,29 @@ public interface FoodMapper {
    */
 	public List<FoodVO> foodListData(Map map);
 	public int foodTotalPage();
+	/*
+	 *   <update id="foodHitIncrement" parameterType="int">
+		     UPDATE menupan_food SET
+		     hit=hit+1
+		     WHERE fno=#{fno}
+		   </update>
+		   <select id="foodDetailData" resultType="com.sist.web.vo.FoodVO"
+		    parameterType="int">
+		     SELECT fno,name,poster,time,address,phone,theme,
+		            parking,score,content,price,type
+		     FROM menupan_food
+		     WHERE fno=#{fno} 
+		   </select>
+	 */
+	public void foodHitIncrement(int fno);
+	public FoodVO foodDetailData(int fno);
+	/*
+	 *   <select id="foodTop10" resultType="com.sist.web.vo.FoodVO">
+		     SELECT fno,poster,name,address,phone,rownum
+		     FROM (SELECT fno,poster,name,address,phone 
+		     FROM menupan_food ORDER BY hit DESC)
+		     WHERE rownum&lt;=10
+		   </select>
+	 */
+	public List<FoodVO> foodTop10();
 }
