@@ -1,5 +1,6 @@
 package com.sist.web.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -157,12 +158,20 @@ import org.springframework.web.bind.annotation.GetMapping;
  *                                    Vue / React 
  *                    ---------------------------------------  
  */
+import java.util.*;
+import com.sist.web.service.*;
+import com.sist.web.vo.*;
 @Controller
 public class FoodController {
+   @Autowired
+   private EmpService eService;
+   
    @GetMapping("/")
    public String main_main(Model model)
    {
-	   model.addAttribute("msg", "Hello ThymeLeaf!!");
+	   //model.addAttribute("msg", "Hello ThymeLeaf!!");
+	   List<EmpVO> list=eService.empListData();
+	   model.addAttribute("list", list);
 	   return "main"; // .html => main.html
    }
 }
