@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /*
  *   1. 교재 
@@ -166,6 +167,9 @@ public class FoodController {
    @Autowired
    private EmpService eService;
    
+   @Autowired
+   private FoodService fService;
+   
    @GetMapping("/")
    public String main_main(Model model)
    {
@@ -173,6 +177,44 @@ public class FoodController {
 	   List<EmpVO> list=eService.empListData();
 	   model.addAttribute("list", list);
 	   return "main"; // .html => main.html
+   }
+   @GetMapping("/food/list")
+   public String food_list(@RequestParam(name="page",required=false) String page,Model model)
+   {
+	   if(page==null)
+		   page="1";
+	   int curpage=Integer.parseInt(page);
+	   int rowSize=12;
+	   int start=(rowSize*curpage)-(rowSize-1);
+	   int end=rowSize*curpage;
+	   Map map=new HashMap();
+	   map.put("start", start);
+	   map.put("end", end);
+	   List<FoodVO> list=fService.foodListData(map);
+	   int totalpage=fService.foodTotalPage();
+	   
+	   final int BLOCK=10;
+	   int startPage=((curpage-1)/BLOCK*BLOCK)+1;
+	   /*
+	    *   curpage 1~10 ==> startPage 1
+	    *   curpage 11~20 ==> startPage 11
+	    *   
+	    *   curpage 1~10 ==> endPage 10
+	    *   curpage 11~20 ==> ennPagg 20
+	    */
+	   int endPage=((curpage-1)/BLOCK*BLOCK)+BLOCK;
+	   
+	   if(endPage>totalpage)
+	       endPage=totalpage;
+	   
+	   // thymeLeaf로 값 전송 
+	   model.addAttribute("list", list);
+	   model.addAttribute("curpage", curpage);
+	   model.addAttribute("totalpage", totalpage);
+	   model.addAttribute("startPage", startPage);
+	   model.addAttribute("endPage", endPage);
+	   
+	   return "food/list";
    }
 }
 
