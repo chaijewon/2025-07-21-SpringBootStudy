@@ -46,4 +46,19 @@ public interface BoardMapper {
 	 */
 	public BoardVO boardDetailData(int no);
 	public void boardHitIncrement(int no);
+	/*
+	 *   <select id="boardGetPassword" resultType="string"
+		   parameterType="int"
+		  >
+		   SELECT pwd FROM springReplyBoard
+		   WHERE no=#{no}
+		  </select>
+		  <update id="boardUpdate" parameterType="com.sist.web.vo.BoardVO">
+		   UPDATE springReplyBoard SET
+		   name=#{name} , subject=#{subject}, content=#{content}
+		   WHERE no=#{no}
+		  </update>
+	 */
+	public String boardGetPassword(int no);
+	public void boardUpdate(BoardVO vo);
 }

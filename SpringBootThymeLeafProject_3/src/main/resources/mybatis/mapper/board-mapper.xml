@@ -43,5 +43,16 @@
   </select>
   <!-- 답변 -->
   <!-- 수정 : Vue연동-->
+  <select id="boardGetPassword" resultType="string"
+   parameterType="int"
+  >
+   SELECT pwd FROM springReplyBoard
+   WHERE no=#{no}
+  </select>
+  <update id="boardUpdate" parameterType="com.sist.web.vo.BoardVO">
+   UPDATE springReplyBoard SET
+   name=#{name} , subject=#{subject}, content=#{content}
+   WHERE no=#{no}
+  </update>
   <!-- 삭제 : Vue연동-->
 </mapper>

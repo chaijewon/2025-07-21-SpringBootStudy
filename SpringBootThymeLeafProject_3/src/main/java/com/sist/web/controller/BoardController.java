@@ -103,6 +103,7 @@ public class BoardController {
 	   model.addAttribute("vo", vo);
 	   return "board/update";
    }
+   
 }
 
 
