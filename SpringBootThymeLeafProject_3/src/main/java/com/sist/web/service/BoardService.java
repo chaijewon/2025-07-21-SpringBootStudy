@@ -12,4 +12,5 @@ public interface BoardService {
 	public BoardVO boardDetailData(int no);
 	public BoardVO boardUpdateData(int no);
 	public boolean boardUpdate(BoardVO vo);
+	public void boardReplyInsert(BoardVO vo);
 }

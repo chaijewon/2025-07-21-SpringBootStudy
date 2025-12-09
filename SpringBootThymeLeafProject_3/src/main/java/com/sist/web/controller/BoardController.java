@@ -104,6 +104,13 @@ public class BoardController {
 	   return "board/update";
    }
    
+   @GetMapping("/board/reply")
+   public String board_reply(@RequestParam("no") int no,Model model)
+   {
+	   model.addAttribute("no", no);
+	   return "board/reply"; // ModelAndView
+   }
+   
 }
 
 

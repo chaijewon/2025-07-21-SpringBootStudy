@@ -3,6 +3,7 @@ import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sist.web.mapper.*;
 import com.sist.web.vo.*;
@@ -54,6 +55,13 @@ public class BoardServiceImpl implements BoardService{
 			mapper.boardUpdate(vo);
 		}
 		return bCheck;
+	}
+
+	@Override
+	@Transactional
+	public void boardReplyInsert(BoardVO vo) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

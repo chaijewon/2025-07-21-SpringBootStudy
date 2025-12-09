@@ -42,6 +42,41 @@
     WHERE no=#{no}
   </select>
   <!-- 답변 -->
+  <!-- 1. 상위 게시물의 정보 : group관련 -->
+  <select id="boardParentInfoData" resultType="com.sist.web.vo.BoardVO"
+   parameterType="int"
+  >
+    SELECT group_id,group_step,group_tab
+    FROM StringReplyBoard
+    WHERE no=#{no}
+  </select>
+  <update id="boardGroupStepIncrement" parameterType="com.sist.web.vo.BoardVO">
+    UPDATE springReplyBoard SET
+    group_step=group_step+1
+    WHERE group_id=#{group_id} AND group_step>#{group_step}
+  </update>
+  <!--  데이터 추가 -->
+  <insert id="boardReplyInsert" parameterType="com.sist.web.vo.BoardVO">
+   INSERT INTO springReplyBoard(no,name,subject,content,pwd,group_id,group_step,group_tab,root)
+   VALUES(srb_no_seq.nextval,#{name},#{subject},
+   #{content},#{pwd},#{group_id},#{group_step},#{group_tab},#{root}
+   )
+ </insert>
+ <update id="boardDepthIncrement" parameterType="int">
+  UPDATE springReplyBoard SET
+  depth=depth+1
+  WHERE no=#{no}
+ </update>
+  <!-- 
+                          gi   gs   gt
+        AAAAAAA            1    0    0
+          => DDDDDD        1    2    1
+          => BBBBBB        1    3    1
+         
+            => CCCCCC      1    4    2
+          
+          
+   -->
   <!-- 수정 : Vue연동-->
   <select id="boardGetPassword" resultType="string"
    parameterType="int"
@@ -56,3 +91,4 @@
   </update>
   <!-- 삭제 : Vue연동-->
 </mapper>
+
