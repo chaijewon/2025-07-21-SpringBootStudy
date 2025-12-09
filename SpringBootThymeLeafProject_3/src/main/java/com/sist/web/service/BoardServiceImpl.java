@@ -29,6 +29,19 @@ public class BoardServiceImpl implements BoardService{
 		// TODO Auto-generated method stub
 		mapper.boardInsert(vo);
 	}
+
+	@Override
+	public BoardVO boardDetailData(int no) {
+		// TODO Auto-generated method stub
+		mapper.boardHitIncrement(no);
+		return mapper.boardDetailData(no);
+	}
+
+	@Override
+	public BoardVO boardUpdateData(int no) {
+		// TODO Auto-generated method stub
+		return mapper.boardDetailData(no);
+	}
 	
 	// 답변 
 	// => 트랜잭션 적용 => DML / TCL 

@@ -29,4 +29,21 @@ public interface BoardMapper {
 	public List<BoardVO> boardListData(Map map);
 	public int boardRowCount();
 	public void boardInsert(BoardVO vo);
+	/*
+	 *   <update id="boardHitIncrement" parameterType="int">
+		    UPDATE springReplyBoard SET
+		    hit=hit+1
+		    WHERE no=#{no}
+		  </update>
+		  <select id="boardDetailData" resultType="com.sist.web.vo.BoardVO"
+		   parameterType="int"
+		  >
+		    SELECT no,name,subject,content,hit,
+		           TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS') as dbday
+		    FROM springReplyBoard
+		    WHERE no=#{no}
+		  </select>
+	 */
+	public BoardVO boardDetailData(int no);
+	public void boardHitIncrement(int no);
 }

@@ -88,6 +88,21 @@ public class BoardController {
 	   bService.boardInsert(vo);
 	   return "redirect:/board/list";
    }
+   @GetMapping("/board/detail")
+   public String board_detail(@RequestParam("no") int no,Model model)
+   {
+	   BoardVO vo=bService.boardDetailData(no);
+	   model.addAttribute("no", no);
+	   model.addAttribute("vo", vo);
+	   return "board/detail";
+   }
+   @GetMapping("/board/update")
+   public String board_update(@RequestParam("no") int no,Model model)
+   {
+	   BoardVO vo=bService.boardUpdateData(no);
+	   model.addAttribute("vo", vo);
+	   return "board/update";
+   }
 }
 
 
