@@ -18,6 +18,8 @@ import lombok.RequiredArgsConstructor;
  *             | Mybatis => XML/Annotation => 4.0 (Annotation)
  *    => XML : properties / yml 
  *        | => Annotatation 
+ *        
+ *    http://localhost/food/find_vue/?page=1
  */
 public class FoodServiceImpl implements FoodService{
   private final FoodMapper mapper;
