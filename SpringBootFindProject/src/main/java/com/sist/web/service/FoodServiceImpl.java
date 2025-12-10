@@ -20,6 +20,10 @@ import lombok.RequiredArgsConstructor;
  *        | => Annotatation 
  *        
  *    http://localhost/food/find_vue/?page=1
+ *    
+ *    mapper.xml (SQL) => Mapper => Service => ServiceImpl => Controller
+ *                                                               |
+ *                                                             HTML/JSP
  */
 public class FoodServiceImpl implements FoodService{
   private final FoodMapper mapper;
@@ -43,6 +47,13 @@ public class FoodServiceImpl implements FoodService{
   public int foodTotalPage() {
 	// TODO Auto-generated method stub
 	return mapper.foodTotalPage();
+  }
+
+  @Override
+  public FoodVO foodDetailData(int fno) {
+	// TODO Auto-generated method stub
+	mapper.hitIncrement(fno);
+	return mapper.foodDetailData(fno);
   }
   
 }
