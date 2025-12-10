@@ -124,6 +124,12 @@ public class BoardController {
 	   model.addAttribute("no", no);
 	   return "board/delete"; // ModelAndView
    }
+   @GetMapping("/board/vue")
+   public String board_vue(Model model)
+   {
+	   model.addAttribute("msg", "Hello Vue!!");
+	   return "board/vue";
+   }
    
 }
 
