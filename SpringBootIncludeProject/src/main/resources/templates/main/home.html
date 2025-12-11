@@ -20,7 +20,7 @@ p{
     <div class="row">
       <div class="col-md-3" th:each="vo:${list}">
 	    <div class="thumbnail">
-	      <a href="#">
+	      <a th:href="@{/food/detail(fno=${vo.fno})}">
 	        <img th:src="${vo.poster}" th:title="${vo.address}" style="width:240px;height: 130px">
 	        <div class="caption">
 	          <p>[[${vo.name}]]</p>

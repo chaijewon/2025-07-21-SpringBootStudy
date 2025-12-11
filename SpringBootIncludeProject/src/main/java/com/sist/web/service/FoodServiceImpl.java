@@ -35,5 +35,12 @@ public class FoodServiceImpl implements FoodService{
 	// TODO Auto-generated method stub
 	return mapper.foodTotalPage();
    }
+
+   @Override
+   public FoodVO foodDetailData(int fno) {
+	// TODO Auto-generated method stub
+	   mapper.hitIncrement(fno);
+	   return mapper.foodDetailData(fno);
+   }
    
 }
