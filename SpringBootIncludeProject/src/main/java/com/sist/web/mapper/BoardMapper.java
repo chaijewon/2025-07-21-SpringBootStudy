@@ -1,5 +1,6 @@
 package com.sist.web.mapper;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -27,6 +28,10 @@ public interface BoardMapper {
    @Update("UPDATE springboard SET hit=hit+1 WHERE no=#{no}")
    public void hitIncrement(int no);
    // 글쓰기 => @PostMapping
+   @Insert("INSERT INTO springboard VALUES("
+		  +"sb_no_seq.nextval,#{name},#{subject},#{content},"
+		  +"#{pwd},SYSDATE,0)")
+   public void boardInsert(BoardVO vo);
    // 수정  => @PutMapping
    // 삭제  => @DeleteMapping 
    // ----------------------------- RestFul 

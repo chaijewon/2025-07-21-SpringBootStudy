@@ -8,4 +8,5 @@ public interface BoardService {
 	public List<BoardVO> boardListData(int start);
 	public int boardTotalPage();
 	public BoardVO boardDetailData(int no);
+	public void boardInsert(BoardVO vo);
 }
