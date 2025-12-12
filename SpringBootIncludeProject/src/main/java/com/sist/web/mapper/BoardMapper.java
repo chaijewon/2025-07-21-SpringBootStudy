@@ -2,6 +2,7 @@ package com.sist.web.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 import java.util.*;
 import com.sist.web.vo.*;
@@ -18,6 +19,13 @@ public interface BoardMapper {
    public int boardTotalPage();
    
    // 상세보기 =>  @GetMapping
+   @Select("SELECT no,name,subject,content,hit,TO_CHAR(regdate,'YYYY-MM-DD') as dbday "
+		  +"FROM springboard "
+		  +"WHERE no=#{no}")
+   public BoardVO boardDetailData(int no);
+   
+   @Update("UPDATE springboard SET hit=hit+1 WHERE no=#{no}")
+   public void hitIncrement(int no);
    // 글쓰기 => @PostMapping
    // 수정  => @PutMapping
    // 삭제  => @DeleteMapping 

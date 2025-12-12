@@ -36,7 +36,7 @@
       <tbody>
         <tr th:each="vo:${list}">
           <td class="text-center" width=10%>[[${vo.no}]]</td>
-          <td width=45%>[[${vo.subject}]]</td>
+          <td width=45%><a th:href="@{/board/detail(no=${vo.no})}">[[${vo.subject}]]</a></td>
           <td class="text-center" width=15%>[[${vo.name}]]</td>
           <td class="text-center" width=20%>[[${vo.dbday}]]</td>
           <td class="text-center" width=10% th:text="${vo.hit}"></td>
@@ -45,7 +45,7 @@
           <td colspan="5" class="text-center">
             <a th:href="@{/board/list(page=${curpage>1?curpage-1:curpage})}" class="btn btn-sm btn-info">이전</a>
             [[${curpage}]] page / [[${totalpage}]] pages
-            <a href="@{/board/list(page=${curpage<totalpage?curpage+1:curpage})}" class="btn btn-sm btn-info">다음</a>
+            <a th:href="@{/board/list(page=${curpage<totalpage?curpage+1:curpage})}" class="btn btn-sm btn-info">다음</a>
           </td>
         </tr>
       </tbody>

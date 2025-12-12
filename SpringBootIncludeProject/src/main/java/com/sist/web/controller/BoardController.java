@@ -48,6 +48,24 @@ public class BoardController {
 	   model.addAttribute("main_html", "board/list");
 	   return "main/main";
    }
+   // 상세보기 
+   @GetMapping("/board/detail")
+   public String board_detail(@RequestParam("no") int no,Model model)
+   {
+	   
+	   // DB연동 
+	   BoardVO vo=bService.boardDetailData(no);
+	   model.addAttribute("vo", vo);
+	   model.addAttribute("main_html", "board/detail");
+	   return "main/main";
+   }
+   // 글쓰기
+   @GetMapping("/board/insert")
+   public String board_insert(Model model)
+   {
+	   model.addAttribute("main_html", "board/insert");
+	   return "main/main";
+   }
 }
 
 
