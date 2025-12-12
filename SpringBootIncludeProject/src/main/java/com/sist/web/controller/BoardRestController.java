@@ -3,6 +3,7 @@ import java.util.*;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,6 +28,7 @@ import lombok.RequiredArgsConstructor;
  *       }
  *    }
  */
+@CrossOrigin(origins = "*")
 public class BoardRestController {
     private final BoardService bService;
     
@@ -51,5 +53,22 @@ public class BoardRestController {
     	}
     	return new ResponseEntity<>(map,HttpStatus.OK);
     }
+    
+    @GetMapping("/board/detail_vue/")
+    public ResponseEntity<BoardVO> board_detail_vue(
+      @RequestParam("no") int no)
+    {
+    	BoardVO vo=new BoardVO();
+    	try
+    	{
+    		 vo=bService.boardDetailData(no);
+    		 
+    	}catch(Exception ex)
+    	{
+    		return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+    	}
+    	return new ResponseEntity<>(vo,HttpStatus.OK);
+    }
+    
     
 }
