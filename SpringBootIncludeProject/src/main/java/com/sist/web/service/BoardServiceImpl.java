@@ -56,6 +56,19 @@ public class BoardServiceImpl implements BoardService{
 	   }
 	   return bCheck;
    }
+
+   @Override
+   public boolean boardDelete(int no,String pwd) {
+	 // TODO Auto-generated method stub
+	 boolean bCheck=false;
+	 String db_pwd=mapper.boardGetPassword(no);
+	 if(db_pwd.equals(pwd))
+	 {
+		 bCheck=true;
+		 mapper.boardDelete(no);
+	 }
+	 return bCheck;
+   }
    
    
 }

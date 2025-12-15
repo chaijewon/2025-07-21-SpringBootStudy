@@ -119,6 +119,32 @@ public class BoardController {
 	   model.addAttribute("main_html", "board/delete");
 	   return "main/main";
    }
+   @PostMapping("/board/delete_ok")
+   @ResponseBody
+   // => @RestController (vue연결) => 자체 
+   public String board_delete_ok(@RequestParam("no") int no,
+		   @RequestParam("pwd") String pwd)
+   {
+	   String res="";
+	   // 데이터베이스 연결 
+	   boolean bCheck=bService.boardDelete(no, pwd);
+	   // 이동 = 1. 비밀번호가 틀린 경우 / 2. 비밀번호가 맞는 경우
+	   if(bCheck==true)
+	   {
+		   res="<script>"
+			  +"location.href=\"/board/list\""
+			  +"</script>";
+	   }
+	   else
+	   {
+		   res="<script>"
+			  +"alert(\"Password Fail!!\");"
+			  +"history.back();"
+			  +"</script>";
+	   }
+		   
+	   return res;
+   }
    
 }
 
