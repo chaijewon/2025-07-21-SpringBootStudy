@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -69,6 +71,24 @@ public class BoardRestController {
     	}
     	return new ResponseEntity<>(vo,HttpStatus.OK);
     }
+    // 글쓰기 vuex => pinia(개인 프로젝트) 
     
-    
+    @PostMapping("/board/insert_vue/")
+    public ResponseEntity<Map> board_insert_vue(
+      @RequestBody BoardVO vo
+    )
+    {
+    	Map map=new HashMap();
+    	try
+    	{
+    		bService.boardInsert(vo);
+    		map.put("msg", "yes");
+    	}catch(Exception ex)
+    	{
+    		map.put("msg", "no");
+    		return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+    	}
+    	return new ResponseEntity<>(map,HttpStatus.OK);
+    }
+     
 }
