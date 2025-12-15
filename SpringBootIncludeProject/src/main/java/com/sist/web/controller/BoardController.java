@@ -112,6 +112,13 @@ public class BoardController {
 		   
 	   return res;
    }
+   @GetMapping("/board/delete")
+   public String board_delete(@RequestParam("no") int no,Model model)
+   {
+	   model.addAttribute("no", no);
+	   model.addAttribute("main_html", "board/delete");
+	   return "main/main";
+   }
    
 }
 
