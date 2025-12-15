@@ -33,6 +33,12 @@ public interface BoardMapper {
 		  +"#{pwd},SYSDATE,0)")
    public void boardInsert(BoardVO vo);
    // 수정  => @PutMapping
+   @Select("SELECT pwd FROM springboard WHERE no=#{no}")
+   public String boardGetPassword(int no);
+   @Update("UPDATE springboard SET "
+		  +"name=#{name},subject=#{subject},content=#{content} "
+		  +"WHERE no=#{no}")
+   public void boardUpdate(BoardVO vo);
    // 삭제  => @DeleteMapping 
    // ----------------------------- RestFul 
    // 게시판 / 댓글  
