@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sist.web.service.*;
 import com.sist.web.vo.*;
 
+import groovyjarjarantlr4.v4.parse.ANTLRParser.exceptionGroup_return;
 import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
@@ -29,6 +30,21 @@ import lombok.RequiredArgsConstructor;
  *       {
  *       }
  *    }
+ *    
+ *    => 1. @RestController 
+ *          | 자바스크립트 / 모바일 연동 => 데이터만 전송 
+ *            ---------
+ *            | router : react / vue 
+ *              ------
+ *              vue연동 : cnd (vuex , pinia) 
+ *       2. @RequiredArgsConstructor
+ *           생성자에서 @Autowired
+ *       3. @CrossOrigin(origins = "*") : port가 다른 경우 
+ *           port 허용 
+ *       4. @RequestParam => 한개의 요청값 
+ *          @ModelAttribute => VO단위로 값을 받는 경우 
+ *          @RequestBody => JSON으로 받는 경우 = 객체 변환 
+ *              
  */
 @CrossOrigin(origins = "*")
 public class BoardRestController {
@@ -86,6 +102,34 @@ public class BoardRestController {
     	}catch(Exception ex)
     	{
     		map.put("msg", "no");
+    		return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+    	}
+    	return new ResponseEntity<>(map,HttpStatus.OK);
+    }
+    @PostMapping("/board/update_vue/")
+    public ResponseEntity<Map> board_update_vue(
+    	@RequestBody BoardVO vo
+    )
+    {
+    	System.out.println("번호:"+vo.getNo());
+    	System.out.println("이름:"+vo.getName());
+    	System.out.println("제목:"+vo.getSubject());
+    	System.out.println("내용:"+vo.getContent());
+    	System.out.println("비번:"+vo.getPwd());
+    	Map map=new HashMap();
+    	try
+    	{
+    		boolean bCheck=bService.boardUpdate(vo);
+    		if(bCheck==true)
+    		{
+    			map.put("msg", "yes");
+    		}
+    		else
+    		{
+    			map.put("msg", "no");
+    		}
+    	}catch(Exception ex)
+    	{
     		return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
     	}
     	return new ResponseEntity<>(map,HttpStatus.OK);
