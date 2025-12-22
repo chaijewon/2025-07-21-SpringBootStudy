@@ -2,6 +2,7 @@ package com.sist.web.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import java.io.Serial;
@@ -39,6 +40,22 @@ public interface FoodMapper {
 	 *        <input type=text name="name[2]">
 	 *        => List => file업로드 여러개 
 	 */
+	/*
+	 *   <select id="foodDetailData" resultType="com.sist.web.vo.FoodVO"
+		    parameterType="int"
+		   >
+		    SELECT fno,name,poster,address,phone,time,parking,score,
+		           theme,type,content
+		    FROM menupan_food
+		    WHERE fno=#{fno}
+		   </select>
+	 */
+	public FoodVO foodDetailData(int fno);
+	
+	@Update("UPDATE menupan_food SET hit=hit+1 WHERE fno=#{fno}")
+	public void foodHitIncrement(int fno);
+	
+	
 }
 
 

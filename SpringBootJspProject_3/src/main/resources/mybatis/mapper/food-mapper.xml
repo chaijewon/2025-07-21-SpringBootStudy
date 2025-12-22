@@ -11,4 +11,14 @@
      ORDER BY fno ASC
      OFFSET #{start} ROWS FETCH NEXT 12 ROWS ONLY
    </select>
+   
+   <!-- 상세보기 -->
+   <select id="foodDetailData" resultType="com.sist.web.vo.FoodVO"
+    parameterType="int"
+   >
+    SELECT fno,name,poster,address,phone,time,parking,score,
+           theme,type,content
+    FROM menupan_food
+    WHERE fno=#{fno}
+   </select>
  </mapper>

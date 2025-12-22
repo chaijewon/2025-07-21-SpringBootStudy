@@ -19,6 +19,9 @@ p{
    white-space: nowrap;
    text-overflow: ellipsis;
 }
+.nav-link{
+  cursor: pointer;
+}
 </style>
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -28,7 +31,7 @@ p{
      <div class="row">
         <div class="col-md-3" v-for="vo in list">
 		    <div class="thumbnail">
-		      <a href="#">
+		      <a :href="'http://localhost:9090/food/detail?fno='+vo.fno">
 		        <img :src="vo.poster" :title="vo.address" style="width:250px;height: 150px">
 		        <div class="caption">
 		          <p>{{vo.name}}</p>
@@ -38,7 +41,13 @@ p{
 		  </div>
      </div>
      <div class="row text-center" style="margin-top: 20px">
-      
+        <ul class="pagination">
+         <li v-if="startPage>1"><a class="nav-link" @click="prev(startPage-1)">&laquo;</a></li>
+         <li v-for="i in range(startPage,endPage)"
+          :class="i===curpage?'active':''"
+         ><a class="nav-link" @click="pageChange(i)">{{i}}</a></li>
+         <li v-if="endPage<totalpage"><a class="nav-link" @click="next(endPage+1)">&raquo;</a></li>
+        </ul>
      </div>
    </div>
    <script>
@@ -72,8 +81,35 @@ p{
     			 }).then(response=>{
     				 console.log(response.data)
     				 this.list=response.data.list
+    				 this.curpage=response.data.curpage
+    				 this.totalpage=response.data.totalpage
+    				 this.startPage=response.data.startPage
+    				 this.endPage=response.data.endPage
     			 })
+    		 },
+    		 range(start,end){
+    			 let arr=[]
+    			 let len=end-start
+    			 for(let i=0;i<=len;i++)
+    			 {
+    				 arr[i]=start
+    				 start++;
+    			 }
+    			 return arr;
+    		 },
+    		 prev(page){
+    			 this.curpage=page
+    			 this.dataRecv()
+    		 },
+    		 next(page){
+    			 this.curpage=page
+    			 this.dataRecv()
+    		 },
+    		 pageChange(page){
+    			 this.curpage=page
+    			 this.dataRecv()
     		 }
+    		 
     	 },
     	 // 목록 + 상세보기 / 예약 => component
     	 components:{
