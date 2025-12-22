@@ -44,6 +44,15 @@ p{
 		      </a>
 		    </div>
 		  </div>
+      </div>
+    <div class="row text-center" style="margin-top: 10px">
+       <ul class="pagination">
+        <li v-if="store.startPage>1"><a class="nav-link" @click="store.prev(store.startPage-1)">&laquo;</a></li>
+        <li v-for="i in range(store.startPage,store.endPage)"
+         :class="i===store.curpage?'active':''" @click="store.pageChange(i)"
+        ><a class="nav-link">{{i}}</a></li>
+        <li v-if="store.endPage<store.totalpage"><a class="nav-link" @click="store.next(store.endPage+1)">&raquo;</a></li>
+       </ul>
     </div>
    </div>
    <script src="/recipejs/recipeStore.js"></script>
@@ -56,8 +65,20 @@ p{
     			
     		})
     		
+    		const range=(start,end)=>{
+    			let arr=[]
+    			let len=end-start
+    			for(let i=0;i<=len;i++)
+    			{
+    				arr[i]=start
+    				start++
+    			}
+    			return arr
+    		}
+    		
     		return {
-    			store
+    			store,
+    			range
     		}
     	}
     })
