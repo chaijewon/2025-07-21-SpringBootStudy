@@ -4,11 +4,11 @@ const useRecipeDetailStore=defineStore('recipeDetail',{
 		detail:{}
 	}),
 	actions:{
-		async recipeDetailData(fno){
+		async recipeDetailData(no){
 			const res=await axios.get(
 				'http://localhost:9090/recipe/detail_vue/',{
 					params:{
-						fno:fno
+						no:no
 					}
 				}
 			)

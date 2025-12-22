@@ -47,4 +47,21 @@ public class RecipeRestController {
  	   }
  	   return new ResponseEntity<>(map,HttpStatus.OK);// 200 정상 수행 => map
     }
+    // 상세보기 
+    @GetMapping("/recipe/detail_vue/")
+    public ResponseEntity<RecipeDetailVO> recipe_detail(
+       @RequestParam("no") int no
+    )
+    {
+    	RecipeDetailVO vo=new RecipeDetailVO();
+    	try
+    	{
+    		vo=rService.recipeDetailData(no);
+    	}catch(Exception ex)
+  	    {
+  		   return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+  		   //     500에러에 대한 에러내용 전송 
+  	    }
+  	    return new ResponseEntity<>(vo,HttpStatus.OK);
+    }
 }

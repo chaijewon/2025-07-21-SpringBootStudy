@@ -30,9 +30,70 @@ p{
 </head>
 <body>
   <div class="container">
-    <div class="row">
-    
-    </div>
+		<div class="row">
+		 <table class="table">
+		   <tr>
+		    <td class="text-center" colspan="3">
+		     <img :src="store.detail.poster" style="width: 960px;height: 450px">
+		    </td>
+		   </tr>
+		   <tr>
+		     <td colspan="3" class="text-center"><h3>{{store.detail.title}}</h3></td>
+		   </tr>
+		   <tr>
+		     <td colspan="3">{{store.detail.content}}</td>
+		   </tr>
+		   <tr>
+		     <td class="text-center"><img src="/images/a1.png"></td>
+		     <td class="text-center"><img src="/images/a2.png"></td>
+		     <td class="text-center"><img src="/images/a3.png"></td>
+		   </tr>
+		   <tr>
+		     <td class="text-center">{{store.detail.info1}}</td>
+		     <td class="text-center">{{store.detail.info2}}</td>
+		     <td class="text-center">{{store.detail.info3}}</td>
+		   </tr>
+		 </table>
+		 <table class="table">
+		   <tr>
+		    <td colspan="2"><b>[조리순서]</b></td>
+		   </tr>
+		   <%-- <tr v-for="(detail,index) in ">
+		     <td class="text-left" width=80%>[[${data}]]</td>
+		     <td class="text-right" width="20%">
+		      <img th:src="${nList[status.index]}" style="width:150px;height: 100px"
+		       class="img-rounded"
+		      >
+		     </td>-->
+		     <!-- 
+		         status 
+		         status.index => ArrayList의 index
+		         status.count => ArrayList의 총갯수
+		         status.last  => ArrayList의 저장된 마지막값
+		         status.first => 첫번째 값
+		         status.even  => 짝수 
+		         status.odd   => 홀수 
+		         
+		         => StringTokenizer 
+		         => <c:forTokens> 
+		         => ${#strings.split(문자열,'구분자')}
+		      -->
+		    </tr> --%>
+		 </table>
+		 <table class="table">
+		   <tr>
+		     <td width=20% class="text-left" rowspan="2">
+		      <img :src="store.detail.chef_poster" style="width: 100px;height: 100px"
+		       class="img-circle"
+		      >
+		     </td>
+		     <td width=80%>{{store.detail.chef}}</td>
+		   </tr>
+		   <tr>
+		     <td width=80%>{{store.detail.chef_profile}}</td>
+		   </tr>
+		 </table>
+	</div>
   </div>
   <script src="/recipejs/recipeDetailStore.js"></script>
   <script>
