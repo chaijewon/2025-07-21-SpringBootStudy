@@ -49,8 +49,13 @@
         		   const params=new URLSearchParams(location.search)
     		       const type=params.get('type')
     		       
-        		   // 한번 실행 
-        		 if(!params.has('type'))
+        		   // 한번 실행  /busan  /busan?type=1
+        		    Vue.onMounted(()=>{
+          			   
+        			     store.busanListData(!params.has('type')?1:type)
+        			  
+        		     })
+        		 /* if(!params.has('type'))
         		 {
         			 
         			 Vue.onMounted(()=>{
@@ -66,7 +71,7 @@
         			   store.busanListData(type)
         			  
         		     })
-        		 }
+        		 } */
         		   
         		   
         		   return {
