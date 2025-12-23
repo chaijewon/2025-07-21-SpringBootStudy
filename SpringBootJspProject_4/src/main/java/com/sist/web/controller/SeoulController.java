@@ -3,7 +3,7 @@ package com.sist.web.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
+// => 화면 변경 => router
 @Controller
 public class SeoulController {
   @GetMapping("/seoul")
