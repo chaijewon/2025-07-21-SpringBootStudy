@@ -48,7 +48,7 @@
         		   const store=useSeoulStore()
         		   // 한번 실행 
         		   Vue.onMounted(()=>{
-        			   store.seoulListData(1)
+        			   store.seoulListData(2)
         		   })
         		   
         		   return {

@@ -14,7 +14,7 @@
                     <div class="breadcrumb__text">
                         <h2>서울 여행</h2>
                         <div class="breadcrumb__option">
-                            <span>명소</span>
+                            <span>${title}</span>
                         </div>
                     </div>
                 </div>

@@ -18,9 +18,9 @@
                         <div class="blog__sidebar__item">
                             <h4>Categories</h4>
                             <ul>
-                                <li><a href="#">명소</a></li>
-                                <li><a href="#">자연 & 관광</a></li>
-                                <li><a href="#">쇼핑</a></li>
+                                <li><a href="/seoul?type=1">명소</a></li>
+                                <li><a href="/seoul?type=2">자연 & 관광</a></li>
+                                <li><a href="/seoul?type=3">쇼핑</a></li>
                                 <li><a href="#">음식점</a></li>
                                 <li><a href="#">테마여행</a></li>
                             </ul>

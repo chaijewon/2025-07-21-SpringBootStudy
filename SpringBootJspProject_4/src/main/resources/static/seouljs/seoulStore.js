@@ -34,7 +34,8 @@ const useSeoulStore=defineStore('seoul',{
 	// 기능 설정 => axios => BASE_URL
 	actions:{
 		// 목록 => 페이지 처리 
-		async seoulListData(){
+		async seoulListData(type){
+			this.type=type
 			const res=await axios.get('http://localhost:9090/seoul/list_vue/',{
 				params:{
 					page:this.curpage,
@@ -43,6 +44,34 @@ const useSeoulStore=defineStore('seoul',{
 			})
 			console.log(res.data)
 			this.list=res.data.list
+			this.curpage=res.data.curpage
+			this.totalpage=res.data.totalpage
+			this.startPage=res.data.startPage
+			this.endPage=res.data.endPage
+			this.type=res.data.type
+		},
+		// 페이징 
+		prev(page){
+			this.curpage=page
+			this.seoulListData(this.type)
+		},
+		next(page){
+			this.curpage=page
+		    this.seoulListData(this.type)
+		},
+		pageChange(page){
+			this.curpage=page
+			this.seoulListData(this.type)
+		},
+		range(start,end){
+			let arr=[]
+			let len=end-start
+			for(let i=0;i<=len;i++)
+			{
+				arr[i]=start // arr[i]=start
+				start++
+			}
+			return arr
 		}
 		// 상세보기 
 	}
