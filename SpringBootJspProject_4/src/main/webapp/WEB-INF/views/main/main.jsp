@@ -63,7 +63,7 @@
     <!-- Header Section End -->
 
     <!-- Hero Section Begin -->
-    <jsp:include page="home.jsp"></jsp:include>
+    <jsp:include page="${main_jsp }"></jsp:include>
     <!-- Blog Section End -->
 
     <!-- Footer Section Begin -->
