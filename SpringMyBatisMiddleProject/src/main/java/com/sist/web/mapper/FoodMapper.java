@@ -29,5 +29,16 @@ public interface FoodMapper {
 		 +"hit=hit+1 "
 		 +"WHERE fno=#{fno}")
   public void foodHitIncrement(int fno);
-  
+  /*
+   *  <select id="foodFindData" resultType="com.sist.web.vo.FoodVO"
+       parameterType="hashmap"
+      >
+   */
+  public List<FoodVO> foodFindData(Map map);
+  /*
+   *   <select id="foodFindTotalPage" resultType="int"
+        parameterType="hashmap"
+       >
+   */
+  public int foodFindTotalPage(Map map);
 }
