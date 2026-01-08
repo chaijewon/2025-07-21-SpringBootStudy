@@ -70,8 +70,13 @@ public class SecurityConfig {
 	     // 로그아웃 =>  invalidate => cookie는 사용자가 삭제
 	     .logout(logout -> logout
 	    		 .logoutSuccessUrl("/")
+	     )
+	     // 자동 로그인
+	     .rememberMe(remember->remember
+	    	.key("remember-me-key")
+	    	.tokenValiditySeconds(60*60*24*7)
+	    	.userDetailsService(userDetailService)
 	     );
-	     // 자동 로그인 
 	   return http.build();
    }
    @Bean

@@ -1,7 +1,10 @@
 package com.sist.web.controller;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,5 +48,20 @@ public class MainController {
    @GetMapping("/login")
    public String login_page() {
 	   return "login";
+   }
+   @GetMapping("/all")
+   public String all_page() {
+	   return "all";
+   }
+   @GetMapping("/admin")
+   public String admin_page() {
+	   return "adminpage";
+   }
+   @GetMapping("/user")
+   public String user_page(@AuthenticationPrincipal UserDetails userDetail,Model model)
+   {
+	   model.addAttribute("id", userDetail.getUsername());
+	   model.addAttribute("roles", userDetail.getAuthorities());
+	   return "mypage";
    }
 }
