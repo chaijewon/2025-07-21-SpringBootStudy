@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 import com.sist.web.vo.*;
 
@@ -54,9 +55,9 @@ public class SecurityConfig {
 	   http
 	     .csrf(csrf -> csrf.disable())
 	     .authorizeHttpRequests(auth -> auth
-	    	.requestMatchers("/","/join").permitAll()
+	    	.requestMatchers("/","/join","/login").permitAll()
 	    	.requestMatchers("/user").authenticated()
-	    	.requestMatchers("/admin").hasRole("ROLE__ADMIN")
+	    	.requestMatchers("/admin").hasRole("ADMIN")
 	    	.anyRequest().permitAll() // 게스트 포함 
 	     )
 	     // 로그인 
@@ -64,6 +65,7 @@ public class SecurityConfig {
 	    	.loginPage("/login")
 	    	.loginProcessingUrl("/login")
 	    	.defaultSuccessUrl("/",true)
+	    	.failureHandler(loginFailHandler())
 	     )
 	     // 로그아웃 =>  invalidate => cookie는 사용자가 삭제
 	     .logout(logout -> logout
@@ -77,5 +79,9 @@ public class SecurityConfig {
    public PasswordEncoder passwordEncoder()
    {
 	   return new BCryptPasswordEncoder();
+   }
+   @Bean
+   public AuthenticationFailureHandler loginFailHandler() {
+	   return new LoginFailHandler();
    }
 }
