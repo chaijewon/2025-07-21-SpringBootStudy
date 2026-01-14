@@ -25,7 +25,7 @@
      <p>권한:</p>
      <ul>
        <c:forEach var="role" items="${roles }">
-         <li>${role.aythority}</li>
+         <li>${role.authority}</li>
        </c:forEach>
      </ul>
      <p>
