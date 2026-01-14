@@ -17,6 +17,9 @@
   width: 800px;
 }
 </style>
+<script>
+const NO='${param.no}'
+</script>
 </head>
 <body>
   <div class="container">
@@ -46,7 +49,7 @@
           <td colspan="3" class="text-left">
            <ul>
              <c:forEach var="f" items="${fList }" varStatus="s">
-               <li>${f }(${sList[s.index]}Bytes)</li>
+               <li><a href="/databoard/download?fn=${f }">${f }</a>(${sList[s.index]}Bytes)</li>
              </c:forEach>
            </ul>
           </td>
@@ -60,7 +63,7 @@
         <tr>
           <td colspan="4" class="text-right">
             <a href="#" class="btn btn-xs btn-danger">수정</a>
-            <a href="#" class="btn btn-xs btn-info">삭제</a>
+            <a href="/databoard/delete?no=${vo.no}" class="btn btn-xs btn-info">삭제</a>
             <a href="/databoard/list" class="btn btn-xs btn-primary">목록</a>
           </td>
         </tr>

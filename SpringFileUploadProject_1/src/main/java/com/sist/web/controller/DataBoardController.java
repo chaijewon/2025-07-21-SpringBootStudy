@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
+import java.io.*;
+import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -18,6 +19,7 @@ import com.sist.web.service.*;
 import com.sist.web.vo.*;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 @Controller
 @RequestMapping("databoard/")
@@ -146,5 +148,39 @@ public class DataBoardController {
 	   }
 	   model.addAttribute("vo", vo);
 	   return "databoard/detail";
+   }
+   @GetMapping("download")
+   public void databoard_download(@RequestParam("fn") String fn,
+      HttpServletRequest request,HttpServletResponse response
+   )throws Exception
+   {
+	   String downloadDir=request.getServletContext().getRealPath("/upload");
+	   // Header : 파일명 / 파일크기 
+	   File file=new File(downloadDir+"/"+fn);
+	   response.setHeader("Content-Disposition", "attchement;filename="
+			            +URLEncoder.encode(fn, "UTF-8"));
+	   response.setContentLength((int)file.length());
+	   
+	   BufferedInputStream bis=new BufferedInputStream(
+			       new FileInputStream(file));
+	   // 서버에서 파일 읽기 
+	   BufferedOutputStream bos=
+			       new BufferedOutputStream(
+			    	  response.getOutputStream());
+	   int i=0; // 읽은 바이트수 
+	   byte[] buffer=new byte[1024];
+	   while((i=bis.read(buffer, 0, 1024))!=-1)
+	   {
+		   bos.write(buffer, 0, i);
+	   }
+	   bis.close();
+	   bos.close();
+   }
+   @GetMapping("delete")
+   public String databoard_delete(@RequestParam("no") int no,
+		   Model model)
+   {
+	   model.addAttribute("no", no);
+	   return "databoard/delete";
    }
 }

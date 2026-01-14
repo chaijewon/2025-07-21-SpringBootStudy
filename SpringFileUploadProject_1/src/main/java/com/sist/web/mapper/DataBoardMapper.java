@@ -1,5 +1,6 @@
 package com.sist.web.mapper;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -42,4 +43,15 @@ public interface DataBoardMapper {
    public DataBoardVO databoardDetailData(int no);
    // 수정 => 
    // 삭제 => 파일 삭제 
+   @Select("SELECT pwd FROM springdataboard "
+		  +"WHERE no=#{no}")
+   public String databoardGetPassword(int no);
+   
+   @Delete("DELETE FROM springdataboard WHERE no=#{no}")
+   public void databoardDelete(int no);
+   
+   @Select("SELECT filename,filesize,filecount "
+		  +"FROM springdataboard "
+		  +"WHERE no=#{no}")
+   public DataBoardVO databoardFileInfo(int no);
 }
