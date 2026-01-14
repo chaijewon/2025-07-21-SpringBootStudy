@@ -17,9 +17,7 @@
   width: 800px;
 }
 </style>
-<script>
-const NO='${param.no}'
-</script>
+
 </head>
 <body>
   <div class="container">
