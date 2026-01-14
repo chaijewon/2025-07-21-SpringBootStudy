@@ -117,4 +117,34 @@ public class DataBoardController {
 	   
 	   return "redirect:/databoard/list";
    }
+   @GetMapping("detail")
+   public String databoard_detail(@RequestParam("no") int no,
+		   Model model)
+   {
+	   DataBoardVO vo=dService.databoardDetailData(no);
+	   List<String> fList=new ArrayList<String>();
+	   List<String> sList=new ArrayList<String>();
+	   String f=vo.getFilename();
+	   String s=vo.getFilesize();
+	   
+	   if(vo.getFilecount()>0)
+	   {
+		   StringTokenizer st=new StringTokenizer(f,",");
+		   while(st.hasMoreTokens())
+		   {
+			   fList.add(st.nextToken());
+		   }
+		   
+		   st=new StringTokenizer(s,",");
+		   while(st.hasMoreTokens())
+		   {
+			   sList.add(st.nextToken());
+		   }
+		   
+		   model.addAttribute("fList", fList);
+		   model.addAttribute("sList", sList);
+	   }
+	   model.addAttribute("vo", vo);
+	   return "databoard/detail";
+   }
 }

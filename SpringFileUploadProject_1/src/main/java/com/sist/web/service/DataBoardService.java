@@ -21,4 +21,5 @@ public interface DataBoardService {
 			  +"#{pwd},SYSDATE,0,#{filename},"
 			  +"#{filesize},#{filecount})")*/
 	   public void databoardInsert(DataBoardVO vo);
+	   public DataBoardVO databoardDetailData(int no);
 }

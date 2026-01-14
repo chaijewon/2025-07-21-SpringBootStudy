@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 import java.util.*;
 import com.sist.web.vo.*;
@@ -29,6 +30,16 @@ public interface DataBoardMapper {
    public void databoardInsert(DataBoardVO vo);
    
    // 상세보기 = 다운로드 
+   @Update("UPDATE springdataboard SET "
+		  +"hit=hit+1 "
+		  +"WHERE no=#{no}")
+   public void hitIncrement(int no);
+   
+   @Select("SELECT no,name,subject,content,hit,filename,filesize,filecount, "
+		  +"TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS') as dbday "
+		  +"FROM springdataboard "
+		  +"WHERE no=#{no}")
+   public DataBoardVO databoardDetailData(int no);
    // 수정 => 
    // 삭제 => 파일 삭제 
 }

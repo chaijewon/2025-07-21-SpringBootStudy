@@ -28,4 +28,11 @@ public class DataBoardServiceImpl implements DataBoardService{
 		// TODO Auto-generated method stub
 		mapper.databoardInsert(vo);
 	}
+
+	@Override
+	public DataBoardVO databoardDetailData(int no) {
+		// TODO Auto-generated method stub
+		mapper.hitIncrement(no);
+		return mapper.databoardDetailData(no);
+	}
 }

@@ -46,7 +46,7 @@
         <c:forEach var="vo" items="${list }">
         <tr>
          <td width=10% class="text-center">${vo.no }</th>
-         <td width=40%>${vo.subject }</th>
+         <td width=40%><a href="/databoard/detail?no=${vo.no }">${vo.subject }</a></th>
          <td width=15% class="text-center">${vo.name }</th>
          <td width=20% class="text-center">${vo.dbday }</th>
          <td width=10% class="text-center">${vo.hit }</th>
