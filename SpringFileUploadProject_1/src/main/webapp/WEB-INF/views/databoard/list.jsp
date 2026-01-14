@@ -14,7 +14,7 @@
 }
 .row{
   margin: 0px auto;
-  width: 900px;
+  width: 850px;
 }
 </style>
 </head>
@@ -46,13 +46,13 @@
         <c:forEach var="vo" items="${list }">
         <tr>
          <td width=10% class="text-center">${vo.no }</th>
-         <td width=40%>제목</th>
-         <td width=15% class="text-center">${vo.subject }</th>
+         <td width=40%>${vo.subject }</th>
+         <td width=15% class="text-center">${vo.name }</th>
          <td width=20% class="text-center">${vo.dbday }</th>
          <td width=10% class="text-center">${vo.hit }</th>
          <td width=5% class="text-center">
            <input type="checkbox" ${vo.filecount==0?'':'checked' }
-           readonly>
+           disabled>
          </th>
         </tr> 
         </c:forEach>
