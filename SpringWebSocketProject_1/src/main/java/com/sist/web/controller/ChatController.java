@@ -12,6 +12,8 @@ import com.sist.web.vo.ChatMessage;
 
 @Controller
 public class ChatController {
+	
+   
    @MessageMapping("/chat.send")
    @SendTo("/topic/public")
    // public => 전체 / private => 귓속말 
