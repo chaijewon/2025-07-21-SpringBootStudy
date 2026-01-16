@@ -1,12 +1,13 @@
 const {defineStore} = Pinia
-
+const {nextTick}=Vue
 const useChatStore=defineStore('chat',{
 	state:()=>({
 		stomp:null, // Stomp 객체 
 		users:[], // 접속자 명단 
 		messages:[], // 메세지 목록
 		currentRoom:'public', // public / private
-		loginUser:''
+		loginUser:'',
+		chatBodyEl:null
 	}),
 	actions:{
 		changeRoom(room){
@@ -33,7 +34,8 @@ const useChatStore=defineStore('chat',{
 				}) 
 				// 1:1 
 				this.stomp.subscribe('/user/queue/chat',msg=>{
-					this.messages.push(JSON.parse(msg.body))					
+					this.messages.push(JSON.parse(msg.body))	
+					this.scrollToBottom()				
 				})
 				// 
 				this.stomp.subscribe('/user/queue/force-disconnect',()=>{
@@ -43,6 +45,12 @@ const useChatStore=defineStore('chat',{
 			})
 			
 		},
+		scrollToBottom() {
+		    nextTick()
+		    if (this.chatBodyEl) {
+		       this.chatBodyEl.scrollTop = this.chatBodyEl.scrollHeight
+		     }
+		 },
 		// 전체 채팅 
 		sendPublic(message){
 			this.stomp.send('/app/chat/public',{},

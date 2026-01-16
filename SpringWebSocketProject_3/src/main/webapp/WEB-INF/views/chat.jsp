@@ -50,6 +50,8 @@ const LOGIN_USER='${sessionScope.userid}'
             style="cursor: pointer;"
             v-for="(u,i) in store.users" :key="i"
            >{{u}}</li>
+           <li class="list-group-item" @click="store.changeRoom('public')"
+            style="cursor: pointer;">전체 채팅</li>
         </ul>
       </div>
     </div>
