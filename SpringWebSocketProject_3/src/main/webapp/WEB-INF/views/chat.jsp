@@ -65,6 +65,17 @@ const LOGIN_USER='${sessionScope.userid}'
              </div>
           </div>
         </div>
+        <div class="panel-footer">
+          <div class="input-group">
+           <input type=text class="form-control"
+            v-model="store.msg"
+            @keyup.enter="store.send()"
+            placeholder="메세지 입력">
+            <span class="input-group-btn">
+              <button class="btn btn-primary" @click="store.send()">전송</button>
+            </span>
+          </div>
+        </div>
       </div>
     </div>
    </div>
