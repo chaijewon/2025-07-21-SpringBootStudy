@@ -45,8 +45,8 @@ const useChatStore=defineStore('chat',{
 			})
 			
 		},
-		scrollToBottom() {
-		    nextTick()
+		async scrollToBottom() {
+		    await nextTick()
 		    if (this.chatBodyEl) {
 		       this.chatBodyEl.scrollTop = this.chatBodyEl.scrollHeight
 		     }
@@ -70,13 +70,14 @@ const useChatStore=defineStore('chat',{
 			if(this.msg==='') return
 			if(this.currentRoom==='public')
 			{
-				sendPublic(this.msg)
+				this.sendPublic(this.msg)
 			}
 			else
 			{
-				sendPrivate(this.currentRoom,this.msg)	
+				this.sendPrivate(this.currentRoom,this.msg)	
 			}
 			this.msg=''
+			this.scrollToBottom()
 		}
 	}
 })
