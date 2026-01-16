@@ -6,6 +6,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import com.sist.web.vo.ChatMessage;
 
@@ -34,5 +35,11 @@ public class ChatController {
 		  "/queue/chat",
 		  msg
 	   );
+   }
+   
+   @GetMapping("/chat")
+   public String chat_page()
+   {
+	   return "chat";
    }
 }

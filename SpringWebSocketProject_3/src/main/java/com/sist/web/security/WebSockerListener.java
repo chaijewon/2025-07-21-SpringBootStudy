@@ -6,10 +6,12 @@ import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.messaging.SessionConnectEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
+import org.springframework.web.socket.messaging.SessionSubscribeEvent;
 
 import lombok.RequiredArgsConstructor;
 
 import java.security.*; // Principal
+import java.util.ArrayList;
 @Component
 @RequiredArgsConstructor
 public class WebSockerListener {
@@ -29,13 +31,21 @@ public class WebSockerListener {
 	   
 	   wsRegistry.register(userid, sessionId);
 	   userRegistry.add(userid);
-	   //  접속시 저장 
-	   // 접속자 목록 갱신
-	   template.convertAndSend(
-	      "/topic/users",
-	      userRegistry.getUsers()
-	   );
 	   
+	   
+   }
+   @EventListener
+   public void subscribe(SessionSubscribeEvent event)
+   {
+	   StompHeaderAccessor acc = StompHeaderAccessor.wrap(event.getMessage());
+	    String dest = acc.getDestination();
+
+	    if ("/topic/users".equals(dest)) {
+	        template.convertAndSend(
+	            "/topic/users",
+	            new ArrayList<>(userRegistry.getUsers())
+	        );
+	    }
    }
    // User 해제 
    @EventListener
@@ -49,10 +59,10 @@ public class WebSockerListener {
 	   wsRegistry.unregister(userid, sessionId);
 	   userRegistry.remove(userid);
 	   
-	   template.convertAndSend(
+	   /*template.convertAndSend(
 			      "/topic/users",
-			      userRegistry.getUsers()
-	   );
+			      new ArrayList<>(userRegistry.getUsers())
+	   );*/
 	   
    }
 }
