@@ -14,6 +14,31 @@ import com.sist.web.vo.*;
 import lombok.RequiredArgsConstructor;
 
 import com.sist.web.mapper.*;
+/*
+ *   1. SecurityConfig.java : 접근 권한 (URL) => 로그인 / 로그아웃 / 자동로그인 
+ *           |
+ *       사용자 정보 읽기  CustomUserDetilaService 
+ *       로그인 성공      LoginSeccessHandler ==> session에 저장 (id)
+ *       로그인 실패      LoginFailHandler (O)
+ *       SessionUtil 
+ *       SessionListener => 중복 / 자동으로 Session 해제 
+ *                          ---   ------------------ 로그아웃 / 브라우저종료
+ *       
+ *   2. WebSocketConfig.java : 등록 (URL) 
+ *         | UserSessionRegistry.java : 접속자 목록 
+ *         | **WebSocketRegistry.java  : 
+ *         | WebSocketConfigEventListener : 일대일 / 전체 
+ *   ---------------------------------------------------------------
+ *   3. 화면 처리 
+ *      => RouterController 
+ *      => ChatController 
+ *         @MessageMapping() / => 화면 변경 
+ *            | 채팅 
+ *   4. 데이터 전송 : sender / receiver / message => DTO (VO)
+ *   
+ *   => JSP : Pinia 처리 
+ *            => Kakao 
+ */
 @Service
 @RequiredArgsConstructor
 public class CustomUserDetailService implements UserDetailsService{

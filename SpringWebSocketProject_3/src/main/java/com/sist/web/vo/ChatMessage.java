@@ -1,4 +1,7 @@
 package com.sist.web.vo;
+
+import lombok.Data;
+
 /*
  *    sudo apt-get update
  *    sudo apt-get install openjdk-17-jdk
@@ -14,6 +17,7 @@ package com.sist.web.vo;
  *    ---------------------------
  *    mkdir app 
  */
+@Data
 public class ChatMessage {
   private String type; // 전체 / 1:1 
   private String sender;

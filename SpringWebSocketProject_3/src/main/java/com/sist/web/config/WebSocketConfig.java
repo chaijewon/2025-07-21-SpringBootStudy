@@ -5,7 +5,21 @@ import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
-
+/*
+ *   스프링에서 관리 클래스  : *** DI (객체 생성 , 객체 소멸)
+ *                       클래스와 클래스의 연관 관계 => IoC  : @Autowired
+ *                                     -------
+ *                       주입 => setter / constructor 
+ *   => 스테레오 타입 
+ *   @Configuration : XML => java로 환경 설정 
+ *   @Controller
+ *   @RestController ==> 브라우저 연동 
+ *   @Component ==> 일반 클래스 
+ *   @Repository ==> DAO
+ *   @Service ==> BI
+ *   @RestControllerAdvice => 공통 예외처리 
+ *   @ControllerAdvice
+ */
 @Configuration
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer{
@@ -13,8 +27,9 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer{
 	@Override
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
 		// TODO Auto-generated method stub
-		registry.addEndpoint("/chat-ws")
-		        .setAllowedOriginPatterns("*")
+		// => URL 주소가 동일 /chat 
+		registry.addEndpoint("/chat-ws") // new SockJS("/chat-ws")
+		        .setAllowedOriginPatterns("*") // 포트 CrossOrigin
 		        .withSockJS();
 	}
     /*
