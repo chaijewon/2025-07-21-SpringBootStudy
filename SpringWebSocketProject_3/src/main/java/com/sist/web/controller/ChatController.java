@@ -29,12 +29,22 @@ public class ChatController {
    @MessageMapping("/chat/private")
    public void privateChat(ChatMessage msg,Principal p)
    {
-	   msg.setSender(p.getName());
-	   template.convertAndSendToUser(
-		  msg.getReceiver(),
-		  "/queue/chat",
-		  msg
-	   );
+	   String sender = p.getName();
+	    msg.setSender(sender);
+
+	    // 상대방
+	    template.convertAndSendToUser(
+	        msg.getReceiver(),
+	        "/queue/chat",
+	        msg
+	    );
+
+	    // 본인 
+	    template.convertAndSendToUser(
+	        sender,
+	        "/queue/chat",
+	        msg
+	    );
    }
    
    @GetMapping("/chat")

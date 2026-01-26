@@ -7,12 +7,20 @@ const useChatStore=defineStore('chat',{
 		messages:[], // 메세지 목록
 		currentRoom:'public', // public / private
 		loginUser:'',
-		chatBodyEl:null
+		chatBodyEl:null,
+		msg:'',
+		privateMessages:[]
 	}),
 	actions:{
 		changeRoom(room){
-			this.currentRoom=room;
-			this.messages=[]
+			   this.currentRoom = room
+
+			   if (room === 'public') {
+			       this.messages = []
+			   } else {
+			       this.messages = this.privateMessages[room] || []
+			   }
+			   this.scrollToBottom()
 		},
 		connect(){
 			const socket=new SockJS('/chat-ws') // 웹 소켓 연동 
@@ -30,12 +38,22 @@ const useChatStore=defineStore('chat',{
 				
 				// 전체 채팅
 				this.stomp.subscribe('/topic/chat',msg=>{
-					this.messages.push(JSON.parse(msg.body))					
+					this.messages.push(JSON.parse(msg.body))
+					this.scrollToBottom()					
 				}) 
 				// 1:1 
 				this.stomp.subscribe('/user/queue/chat',msg=>{
-					this.messages.push(JSON.parse(msg.body))	
-					this.scrollToBottom()				
+					const m = JSON.parse(msg.body)
+
+					    if (!this.privateMessages[m.sender]) {
+					        this.privateMessages[m.sender] = []
+					    }
+					    this.privateMessages[m.sender].push(m)
+
+					    if (this.currentRoom === m.sender) {
+					        this.messages.push(m)
+					        this.scrollToBottom()
+					    }		
 				})
 				// 
 				this.stomp.subscribe('/user/queue/force-disconnect',()=>{

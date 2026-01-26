@@ -52,7 +52,7 @@
         <th class="text-center warning" width=15%>첨부파일</th>
         <td width="85%" class="text-left">
          <input type="file" name="files" size=30 class="input-sm"
-           multiple 
+           multiple  accept="image/*"
          >
         </td>
        </tr>
