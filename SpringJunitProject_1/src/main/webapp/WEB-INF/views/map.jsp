@@ -37,7 +37,7 @@ body { margin:0; font-family: Arial, sans-serif; }
   width:36px;
   height:36px;
   border-radius:50%;
-  color:#fff;
+  color:#000;
   font-weight:bold;
   line-height:36px;
   margin:0 auto;
@@ -85,14 +85,13 @@ function draw(){
   courseList.forEach(item => {
     path.push(new kakao.maps.LatLng(item.lat, item.lng));
 
-    const content = `
-      <div class="overlay-wrap">
-        <div class="marker" style="background:${item.color}">
-          ${item.no}
-        </div>
-        <div class="label">${item.title}</div>
-      </div>
-    `;
+    const content = 
+      '<div class="overlay-wrap">'
+        +'<div class="marker" style="background:"'+item.color+'">'
+        +item.no
+        +'</div>'
+        +'<div class="label">'+item.title+'</div>'
+      +'</div>';
 
     const overlay = new kakao.maps.CustomOverlay({
       position: new kakao.maps.LatLng(item.lat, item.lng),

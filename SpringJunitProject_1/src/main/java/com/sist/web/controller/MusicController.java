@@ -130,7 +130,7 @@ public class MusicController {
     	//System.out.println(arr.toJSONString());
     	return "detail";
     }
-	/*
-	 * @GetMapping("/map") public String map_page() { return "map"; }
-	 */
+	
+	  @GetMapping("/map") public String map_page() { return "map"; }
+	 
 }
