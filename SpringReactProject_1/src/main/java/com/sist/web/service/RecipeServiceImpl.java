@@ -4,7 +4,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.sist.web.entity.RecipeDetailEntity;
 import com.sist.web.entity.RecipeEntity;
+import com.sist.web.repository.RecipeDetailRepository;
 import com.sist.web.repository.RecipeRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -12,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RecipeServiceImpl implements RecipeService{
     private final RecipeRepository recipeRepo;
+    private final RecipeDetailRepository reDetailRepo;
 	
 	@Override
 	public Page<RecipeEntity> findAll(Pageable pageable) {
@@ -23,6 +26,12 @@ public class RecipeServiceImpl implements RecipeService{
 	public int recipeTotalPage() {
 		// TODO Auto-generated method stub
 		return (int)(Math.ceil(recipeRepo.count()/12.0));
+	}
+
+	@Override
+	public RecipeDetailEntity findByNo(int no) {
+		// TODO Auto-generated method stub
+		return reDetailRepo.findByNo(no);
 	}
 
 }

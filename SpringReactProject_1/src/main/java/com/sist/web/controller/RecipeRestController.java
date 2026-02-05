@@ -68,4 +68,32 @@ public class RecipeRestController {
 	   }
 	   return new ResponseEntity<>(map,HttpStatus.OK);
    }
+   
+   @GetMapping("/recipe/detail_react/{no}")
+   public ResponseEntity<Map> recipe_detail_react(@PathVariable("no") int no)
+   {
+	   Map map=new HashMap();
+	   try
+	   {
+		   RecipeDetailEntity vo=rService.findByNo(no);
+		   String[] datas=vo.getFoodmake().split("\n");
+		   List<String> cList=new ArrayList<String>();
+		   List<String> iList=new ArrayList<String>();
+		   for(String data:datas)
+		   {
+			   StringTokenizer st=new StringTokenizer(data,"^");
+			   cList.add(st.nextToken());
+			   iList.add(st.nextToken());
+		   }
+		   
+		   map.put("vo", vo);
+		   map.put("cList", cList);
+		   map.put("iList", iList);
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+		   return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+	   }
+	   return new ResponseEntity<>(map,HttpStatus.OK);
+   }
 }

@@ -3,6 +3,7 @@ package com.sist.web.repository;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.sist.web.entity.RecipeDetailEntity;
 import com.sist.web.entity.RecipeEntity;
 import com.sist.web.vo.RecipeListVO;
 
@@ -15,5 +16,8 @@ public interface RecipeRepository extends JpaRepository<RecipeEntity, Integer>{
 		// TODO Auto-generated method stub
 		return null;
 	}*/
+	
+	
+	// select * from recipedetail where no=10(매개변수값) 
 	
 }
