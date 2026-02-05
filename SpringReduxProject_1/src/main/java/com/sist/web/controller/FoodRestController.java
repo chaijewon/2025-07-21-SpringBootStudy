@@ -3,6 +3,7 @@ import java.util.*;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +15,7 @@ import com.sist.web.vo.*;
 import lombok.RequiredArgsConstructor;
 @RestController  // 자동으로 JSON변경 => Jackson 
 @RequiredArgsConstructor // 객체 주소값 주입 
+@CrossOrigin(origins = "*")
 public class FoodRestController {
     private final FoodService fService;
     // /food/list_react/1
@@ -44,5 +46,21 @@ public class FoodRestController {
     	}
     	return new ResponseEntity<>(map,HttpStatus.OK);
     	
+    }
+    
+    // 상세보기 
+    @GetMapping("/food/detail_react/{fno}")
+    public ResponseEntity<FoodEntity> food_detail_react(@PathVariable("fno") int fno)
+    {
+    	FoodEntity vo=new FoodEntity();
+    	try
+    	{
+    		 vo=fService.findByFno(fno);
+    	}catch(Exception ex)
+    	{
+    		ex.printStackTrace();
+    		return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+    	}
+    	return new ResponseEntity<>(vo,HttpStatus.OK);
     }
 }
