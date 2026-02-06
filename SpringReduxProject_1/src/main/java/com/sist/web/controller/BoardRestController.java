@@ -1,0 +1,71 @@
+package com.sist.web.controller;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import java.util.*;
+import com.sist.web.service.*;
+import com.sist.web.entity.*;
+import com.sist.web.vo.*;
+
+import lombok.RequiredArgsConstructor;
+@RestController
+@RequiredArgsConstructor
+@CrossOrigin(origins = "*")
+public class BoardRestController {
+   private final BoardService bService;
+   
+   @GetMapping("/board/list_react/{page}")
+   public ResponseEntity<Map> board_list_react(@PathVariable("page") int page)
+   {
+	   Map map=new HashMap();
+	   try
+	   {
+		   List<BoardDTO> list=bService.boardListData((page-1)*10);
+		   int totalpage=bService.boardTotalPage();
+		   
+		   map.put("list", list);
+		   map.put("curpage", page);
+		   map.put("totalpage", totalpage);
+	   }catch(Exception ex)
+	   {
+		   return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+	   }
+	   return new ResponseEntity<>(map,HttpStatus.OK);
+   }
+   
+   @PostMapping("/board/insert_react")
+   public ResponseEntity<String> board_insert_react(@RequestBody BoardEntity vo)
+   {
+	   String result="";
+	   try
+	   {
+		   bService.boardInsert(vo);
+		   result="yes";
+	   }catch(Exception ex)
+	   {
+		   result="no";
+		   return new ResponseEntity<>(result,HttpStatus.INTERNAL_SERVER_ERROR);
+	   }
+	   return new ResponseEntity<>(result,HttpStatus.OK);
+   }
+   
+   @GetMapping("/board/detail_react/{no}")
+   public ResponseEntity<BoardEntity> board_detail_react(@PathVariable("no") int no)
+   {
+	   BoardEntity vo=new BoardEntity();
+	   try
+	   {
+		   vo=bService.findByNo(no);
+	   }catch(Exception ex)
+	   {
+		   return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+	   }
+	   return new ResponseEntity<>(vo,HttpStatus.OK);
+   }
+}
