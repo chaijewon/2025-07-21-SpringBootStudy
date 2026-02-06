@@ -3,6 +3,7 @@ package com.sist.web.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -90,6 +91,19 @@ public class BoardRestController {
 	   try
 	   {
 		   res=bService.boardUpdateOk(vo);
+	   }catch(Exception ex)
+	   {
+		   return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+	   }
+	   return new ResponseEntity<>(res,HttpStatus.OK);
+   }
+   @DeleteMapping("/board/delete_react/{no}/{pwd}")
+   public ResponseEntity<String> board_delete(@PathVariable("no") int no,@PathVariable("pwd") String pwd)
+   {
+	   String res="";
+	   try
+	   {
+		   res=bService.boardDelete(no,pwd);
 	   }catch(Exception ex)
 	   {
 		   return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);

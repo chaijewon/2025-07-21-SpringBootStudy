@@ -15,4 +15,5 @@ public interface BoardService {
 	public BoardEntity findByNo(int no);
 	public BoardEntity boardUpdateData(int no);
 	public String boardUpdateOk(BoardEntity vo);
+	public String boardDelete(int no,String pwd);
 }

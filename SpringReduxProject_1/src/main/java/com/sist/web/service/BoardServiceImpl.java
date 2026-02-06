@@ -71,6 +71,19 @@ public class BoardServiceImpl implements BoardService{
 	   }
 	return res;
    }
+
+   @Override
+   public String boardDelete(int no, String pwd) {
+	// TODO Auto-generated method stub
+	   BoardEntity pvo=bRepo.findByNo(no);
+	   String res="no";
+	   if(pvo.getPwd().equals(pwd))
+	   {
+		   res="yes";
+		   bRepo.delete(pvo);
+	   }
+	  return res;
+   }
    
    
 }
