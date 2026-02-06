@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.*;
@@ -67,5 +68,32 @@ public class BoardRestController {
 		   return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
 	   }
 	   return new ResponseEntity<>(vo,HttpStatus.OK);
+   }
+   
+   @GetMapping("/board/update_react/{no}")
+   public ResponseEntity<BoardEntity> board_update_react(@PathVariable("no") int no)
+   {
+	   BoardEntity vo=new BoardEntity();
+	   try
+	   {
+		   vo=bService.boardUpdateData(no);
+	   }catch(Exception ex)
+	   {
+		   return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+	   }
+	   return new ResponseEntity<>(vo,HttpStatus.OK);
+   }
+   @PutMapping("/board/update_react_ok")
+   public ResponseEntity<String> board_update_ok(@RequestBody BoardEntity vo)
+   {
+	   String res="";
+	   try
+	   {
+		   res=bService.boardUpdateOk(vo);
+	   }catch(Exception ex)
+	   {
+		   return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+	   }
+	   return new ResponseEntity<>(res,HttpStatus.OK);
    }
 }

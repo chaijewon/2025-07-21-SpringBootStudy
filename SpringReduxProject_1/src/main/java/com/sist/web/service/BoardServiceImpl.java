@@ -52,6 +52,25 @@ public class BoardServiceImpl implements BoardService{
 	vo=bRepo.findByNo(no);
 	return vo;
    }
+
+   @Override
+   public BoardEntity boardUpdateData(int no) {
+	// TODO Auto-generated method stub
+	return bRepo.findByNo(no);
+   }
+
+   @Override
+   public String boardUpdateOk(BoardEntity vo) {
+	// TODO Auto-generated method stub
+	   BoardEntity pvo=bRepo.findByNo(vo.getNo());
+	   String res="no";
+	   if(pvo.getPwd().equals(vo.getPwd()))
+	   {
+		   res="yes";
+		   bRepo.save(vo);
+	   }
+	return res;
+   }
    
    
 }

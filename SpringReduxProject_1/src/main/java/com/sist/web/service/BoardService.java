@@ -13,4 +13,6 @@ public interface BoardService {
 	public void boardInsert(BoardEntity vo);
 	//public void boardNoMax();
 	public BoardEntity findByNo(int no);
+	public BoardEntity boardUpdateData(int no);
+	public String boardUpdateOk(BoardEntity vo);
 }
