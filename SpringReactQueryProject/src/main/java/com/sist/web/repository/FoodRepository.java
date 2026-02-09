@@ -10,7 +10,7 @@ import com.sist.web.dto.FoodDTO;
 import com.sist.web.entity.FoodEntity;
 
 public interface FoodRepository extends JpaRepository<FoodEntity, Integer>{
-   @Query(value="SELECT fno,name,poster "
+   @Query(value="SELECT fno,name as title,poster "
 		 +"FROM menupan_food "
 		 +"ORDER BY fno ASC "
 		 +"OFFSET :start ROWS FETCH NEXT 12 ROWS ONLY",nativeQuery = true) // JPQL로 변경 => 오류를 발생 
