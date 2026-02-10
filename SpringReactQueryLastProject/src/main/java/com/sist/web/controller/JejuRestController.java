@@ -50,4 +50,21 @@ public class JejuRestController {
     	}
     	return new ResponseEntity<>(map,HttpStatus.OK);
     }
+	
+	@GetMapping("/jeju/detail_react/{contentid}")
+	public ResponseEntity<Map> jeju_detail(@PathVariable("contentid") int contentid)
+	{
+		Map map=new HashMap();
+		try
+		{
+			AttractionDTO dto=tService.jejuAttractionDetail(contentid);
+			map.put("dto", dto);
+			// 댓글 첨부 
+		}catch(Exception ex)
+    	{
+    		ex.printStackTrace();
+    		return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+    	}
+		return new ResponseEntity<>(map,HttpStatus.OK);
+	}
 }

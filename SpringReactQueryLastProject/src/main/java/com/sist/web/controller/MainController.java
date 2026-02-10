@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "*")
 public class MainController {
     private final TravelService tService;
-    
+    private final MemberService mService;
     @GetMapping("/")
     public ResponseEntity<Map> main_page()
     {
@@ -42,4 +42,21 @@ public class MainController {
     	return new ResponseEntity<>(map,HttpStatus.OK);
     }
     
+    @GetMapping("/member/login/{id}/{pwd}")
+    public ResponseEntity<MemberDTO> member_login(
+      @PathVariable("id") String id,
+      @PathVariable("pwd") String pwd
+    )
+    {
+    	MemberDTO dto=new MemberDTO();
+    	try
+    	{
+    		dto=mService.memberLogin(id, pwd);
+    	}catch(Exception ex)
+    	{
+    		ex.printStackTrace();
+    		return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+    	}
+    	return new ResponseEntity<>(dto,HttpStatus.OK);
+    }
 }

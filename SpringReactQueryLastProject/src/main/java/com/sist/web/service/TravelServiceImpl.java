@@ -51,4 +51,10 @@ public class TravelServiceImpl implements TravelService{
 	// TODO Auto-generated method stub
 	return jRepo.jejuTotalPage(contenttype);
    }
+
+   @Override
+   public AttractionDTO jejuAttractionDetail(int contentid) {
+	// TODO Auto-generated method stub
+	return jRepo.jejuAttractionDetail(contentid);
+   }
 }

@@ -17,9 +17,9 @@ public interface JejuTravelRepository extends JpaRepository<JejuTravel, Integer>
 			 +"ORDER BY hit DESC "
 			 +"OFFSET 0 ROWS FETCH NEXT 5 ROWS ONLY",nativeQuery = true)
 	   public List<CommonsDTO> jejuListData5();
-	   // CLOB => JSON => TO_CHAR
+	   // CLOB => JSON => TO_CHAR => MyBatis이용 => getXxx() : 읽기 전용 
 	   @Query(value="SELECT j.contentid,title,address,image1,hit,j.contenttype,x,y,"
-			      +"infocenter,restdate,usetime,parking,TO_CHAR(msg) "
+			      +"infocenter,restdate,usetime,parking,DBMS_LOB.SUBSTR(msg,48000,1) as msg "
 			      +"FROM jejutravel j "
 			      +"JOIN attraction a "
 			      +"ON j.contentid = a.contentid "
@@ -31,4 +31,13 @@ public interface JejuTravelRepository extends JpaRepository<JejuTravel, Integer>
 			 +"FROM jejutravel "
 			 +"WHERE contenttype=:contenttype",nativeQuery = true)
 	   public int jejuTotalPage(@Param("contenttype") int contenttype);
+	   
+	   
+	   @Query(value="SELECT j.contentid,title,address,image1,hit,j.contenttype,x,y,"
+			      +"infocenter,restdate,usetime,parking,CAST(DBMS_LOB.SUBSTR(msg,4000,1) AS VARCHAR2(4000)) as msg "
+			      +"FROM jejutravel j "
+			      +"JOIN attraction a "
+			      +"ON j.contentid = a.contentid AND j.contentid=:contentid",
+			      nativeQuery = true)
+	   public AttractionDTO jejuAttractionDetail(@Param("contentid") int contentid);
 }
