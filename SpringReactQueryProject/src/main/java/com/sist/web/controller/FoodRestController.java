@@ -47,6 +47,19 @@ public class FoodRestController {
         }
         return  new ResponseEntity<>(map,HttpStatus.OK);
    }
+   @GetMapping("/food/detail_react/{fno}")
+   public ResponseEntity<FoodEntity> food_detail(@PathVariable("fno") int fno)
+   {
+	   FoodEntity vo=new FoodEntity();
+	   try
+	   {
+		   vo=fService.findByFno(fno); // data
+	   }catch(Exception ex)
+	   {
+		   return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+	   }
+	   return new ResponseEntity<>(vo,HttpStatus.OK);
+   }
 }
 
 
