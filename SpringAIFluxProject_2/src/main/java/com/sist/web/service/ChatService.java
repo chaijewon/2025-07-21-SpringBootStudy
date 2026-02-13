@@ -1,5 +1,7 @@
 package com.sist.web.service;
 
+import java.time.Duration;
+
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.stereotype.Service;
 /*
@@ -8,6 +10,8 @@ import org.springframework.stereotype.Service;
  *     3. 임베디드 : LMM
  *     ---------------------------------
  */
+
+import reactor.core.publisher.Flux;
 @Service
 public class ChatService {
    // 연결 => 클래스가 이미 만들어져 있다 => 클래스 추상화 
@@ -27,5 +31,20 @@ public class ChatService {
 			   .call()
 			   .content();
 	   return s;
+   }
+   
+   public Flux<String> streamChat(String userMessage)
+   {
+	   Flux<String> f=chatClient.prompt()
+			      .user(userMessage)
+			      .stream()
+			      .content();
+			      //.flatMap(this::typingEffect);
+	   System.out.println(f);
+	   return f;
+   }
+   private Flux<String> typingEffect(String chunk) {
+	    return Flux.fromArray(chunk.split("\n"))   // 글자 단위
+	             .delayElements(Duration.ofMillis(100)); // 타이핑 속도
    }
 }
