@@ -27,7 +27,7 @@ spring:
   ai:
     google:
       genai:
-        api-key: AIzaSyCec2P4x4pdpGzjTdd7J_FOZEvh95IDbDU
+        api-key: 
 logging:
     level: 
       org.hibernate.SQL: DEBUG
