@@ -105,7 +105,7 @@
     	                    if (targetText) {
     	                        accumulatedText += targetText;
     	                        // CSS의 pre-wrap 덕분에 \n이 줄바꿈으로 표현됩니다.
-    	                        contentDiv.textContent = accumulatedText; 
+    	                        currentAssistantMessage.textContent = accumulatedText; 
     	                        
     	                        // 새 메시지가 올 때마다 하단 스크롤
     	                        chatBox.scrollTop = chatBox.scrollHeight;
@@ -115,7 +115,7 @@
     	        }
     	    } catch (error) {
     	        console.error("Error", error);
-    	        contentDiv.textContent = "오류가 발생했습니다.";
+    	        currentAssistantMessage.textContent = "오류가 발생했습니다.";
     	    } finally {
     	        sendButton.disabled = false;
     	        currentAssistantMessage=null

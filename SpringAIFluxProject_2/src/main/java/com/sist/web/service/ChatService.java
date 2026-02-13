@@ -1,8 +1,11 @@
 package com.sist.web.service;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 /*
  *     1. LLM 
@@ -10,6 +13,9 @@ import org.springframework.stereotype.Service;
  *     3. 임베디드 : LMM
  *     ---------------------------------
  */
+
+import com.google.api.client.util.Value;
+
 
 import reactor.core.publisher.Flux;
 @Service
@@ -35,11 +41,16 @@ public class ChatService {
    
    public Flux<String> streamChat(String userMessage)
    {
+	   String systemPrompt = "You are a helpful AI assistant.\n"
+	   		+ "Answer questions clearly and concisely in Korean.\n"
+	   		+ "Be friendly and professional."; 
+
 	   Flux<String> f=chatClient.prompt()
+			      .system(systemPrompt)
 			      .user(userMessage)
 			      .stream()
-			      .content();
-			      
+			      .content()
+			      .doOnNext(System.out::println);
 	   System.out.println(f);
 	   return f;
    }
