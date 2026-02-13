@@ -27,7 +27,7 @@
     // 채팅메세지가 표시 => div 
     const chatBox=document.getElementById('chatBox')
     // 사용자 입력창 
-    const messageinput=document.getElementById('messageInput')
+    const messageInput=document.getElementById('messageInput')
     // 메세지 전송
     const sendButton =document.getElementById('sendButton')
     
@@ -82,7 +82,7 @@
     	
     	// AI 
     	currentAssistantMessage=createAssistantMessage()
-    	
+    	let accumulatedText = ""
     	try
     	{
     		const response=await fetch('/chat/stream?message='+encodeURIComponent(message))
@@ -90,39 +90,37 @@
     		const decoder=new TextDecoder("utf-8")
     		let content=""
     		let prevText=""
-    		while(true)
-    		{
-    			const {done,value}= await reader.read()
-    			if(done){
-    				console.log("Stream Complete")
-    				break;
-    			}
-    			
-    			const c=decoder.decode(value,{stream:true})
-    			
-    			const lines=c.split("\n")
-    			
-    			for(const line of lines)
-    			{
-    				  if(!line.startsWith("data:")) continue
-    				  
-    				  const text=line.replaceAll("data:","").trim()
-    				  if(!text) continue
-    				  
-    				  content+=text+"\n"
-    				  currentAssistantMessage.textContent=content;
-    				  await new Promise(r=>setTimeout(r,300))
-    				  
-    				  
-    			}
-    			
-    		}
-    		
-    	}catch(error){
-    		console.error("Error",error)
-    	}
-    	sendButton.disabled=false
-    	currentAssistantMessage=null
+    			while (true) {
+    	            const { done, value } = await reader.read();
+    	            if (done) break;
+
+    	            const chunk = decoder.decode(value, { stream: true });
+    	            const lines = chunk.split("\n");
+
+    	            for (const line of lines) {
+    	                if (line.startsWith("data:")) {
+    	                    // "data:" 뒤의 실제 텍스트만 추출
+    	                    const targetText = line.replace("data:", "").trim();
+    	                    
+    	                    if (targetText) {
+    	                        accumulatedText += targetText;
+    	                        // CSS의 pre-wrap 덕분에 \n이 줄바꿈으로 표현됩니다.
+    	                        contentDiv.textContent = accumulatedText; 
+    	                        
+    	                        // 새 메시지가 올 때마다 하단 스크롤
+    	                        chatBox.scrollTop = chatBox.scrollHeight;
+    	                    }
+    	                }
+    	            }
+    	        }
+    	    } catch (error) {
+    	        console.error("Error", error);
+    	        contentDiv.textContent = "오류가 발생했습니다.";
+    	    } finally {
+    	        sendButton.disabled = false;
+    	        currentAssistantMessage=null
+    	    }
+    	
     }
     // 이벤트 연동 
     sendButton.addEventListener('click',sendMessage)

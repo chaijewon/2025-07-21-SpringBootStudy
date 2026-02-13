@@ -39,7 +39,7 @@ public class ChatService {
 			      .user(userMessage)
 			      .stream()
 			      .content();
-			      //.flatMap(this::typingEffect);
+			      
 	   System.out.println(f);
 	   return f;
    }

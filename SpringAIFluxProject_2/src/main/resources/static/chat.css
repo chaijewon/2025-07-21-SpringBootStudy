@@ -55,7 +55,8 @@
             padding: 12px 18px;
             border-radius: 18px;
             max-width: 70%;
-            word-wrap: break-word;
+            word-wrap: break-all;
+            white-space: pre-wrap
         }
         .message.user .message-content {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);

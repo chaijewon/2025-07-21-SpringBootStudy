@@ -17,6 +17,10 @@ spring:
     prefix: classpath:templates/
     suffix: .html
     mode: HTML 
+  ai:
+    google:
+      genai:
+        api-key: 
 
 logging:
     level: 
