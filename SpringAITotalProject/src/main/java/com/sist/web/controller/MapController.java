@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.sist.web.service.SeoulService;
+import com.sist.web.vo.SeoulVO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -40,7 +41,7 @@ public class MapController {
   public String map_page(Model model)
   {
 	  List<String> titles=sService.seoulGetTitle();
-	  System.out.println(titles);
+	  //System.out.println(titles);
 	  String result="";
 	  try
 	  {
@@ -77,13 +78,19 @@ public class MapController {
 		  
 		  
 		  List<String> rList=new ArrayList<String>(new HashSet<String>(res));
+		  List<SeoulVO> sList=new ArrayList<SeoulVO>();
+		  for(int k=0;k<rList.size();k++)
+		  {
+			  SeoulVO vo=sService.seoulData(rList.get(k));
+			  vo.setRank(k+1);
+			  vo.setColor("#ff4c4c");
+			  sList.add(vo);
+		  }
 		  
-		  
-		  
-		  model.addAttribute("map", rList);
+		  model.addAttribute("list", sList);
 	  }catch(Exception ex) {
 		  ex.printStackTrace();
 	  }
-	  return "test";
+	  return "map";
   }
 }

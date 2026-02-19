@@ -1,17 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>성수 DAY1 여행 코스</title>
-
+<link rel="stylesheet"
+ href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=72fa81817487692b6dc093004af97650"></script>
 
 <style>
 body { margin:0; font-family: Arial, sans-serif; }
 
-#map { width:100%; height:650px; }
+#map { width:100%; height:600px;margin-top: 70px }
 
 /* 상단 버튼 */
 .category {
@@ -60,6 +62,10 @@ body { margin:0; font-family: Arial, sans-serif; }
 <body>
 
 <div class="category">추천 코스</div>
+<div>
+  <input type=text name=title size=20 class="input-sm">
+  <button class="btn-sm btn-danger" type=submit>검색</button>
+</div>
 <div id="map"></div>
 
 <script>
@@ -69,11 +75,9 @@ const map = new kakao.maps.Map(document.getElementById('map'), {
 });
 
 const courseList = [
-  { no:1, title:'성수 연무장길', lat:37.5446, lng:127.0453, color:'#b04cff' },
-  { no:2, title:'아모레 성수', lat:37.5459, lng:127.0478, color:'#b04cff' },
-  { no:3, title:'성수동 수제화 거리', lat:37.5439, lng:127.0442, color:'#b04cff' },
-  { no:4, title:'성수 셀프 포토부스', lat:37.5427, lng:127.0431, color:'#ff4c4c' },
-  { no:5, title:'서울숲', lat:37.5443, lng:127.0370, color:'#2ecc71' }
+  <c:forEach var="vo" items="${list}">
+  { no:${vo.rank}, title:'${vo.title}', lat:${vo.y}, lng:${vo.x}, color:'${vo.color}' },
+  </c:forEach>
 ];
 
 let overlays = [];

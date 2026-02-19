@@ -6,9 +6,16 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
+import com.sist.web.vo.SeoulVO;
+
 @Mapper
 @Repository
 public interface SeoulMapper {
   @Select("SELECT title FROM seoultravel")
   public List<String> seoulGetTitle();
+  
+  @Select("SELECT no,title,x,y "
+		 +"FROM seoultravel "
+		 +"WHERE title=#{title}")
+  public SeoulVO seoulData(String title);
 }
