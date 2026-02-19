@@ -22,6 +22,8 @@ public class ChatService {
 			         .user(userMessage)
 			         .stream()
 			         .content()
+			         .bufferUntil(t->t.endsWith(".")||t.endsWith("다")||t.endsWith("요"))
+			         .map(list -> String.join("", list))
 			         .doOnNext(System.out::println); // ai가 보낸준 데이터 출력 
 	   return f;
    }
