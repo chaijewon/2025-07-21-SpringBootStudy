@@ -63,8 +63,10 @@ body { margin:0; font-family: Arial, sans-serif; }
 
 <div class="category">추천 코스</div>
 <div>
-  <input type=text name=title size=20 class="input-sm">
-  <button class="btn-sm btn-danger" type=submit>검색</button>
+  <form method=post action="/">
+   <input type=text name=title size=20 class="input-sm" required>
+   <button class="btn-sm btn-danger" type=submit>검색</button>
+  </form>
 </div>
 <div id="map"></div>
 

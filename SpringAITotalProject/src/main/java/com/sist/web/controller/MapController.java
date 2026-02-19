@@ -8,7 +8,10 @@ import java.util.regex.Pattern;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.sist.web.service.AIService;
 import com.sist.web.service.SeoulService;
 import com.sist.web.vo.SeoulVO;
 
@@ -18,7 +21,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MapController {
   private final SeoulService sService;
-  private String data="""
+  private final AIService aService;
+  /*private String data="""
 자연 및 공원
 하늘공원
 노을공원
@@ -36,10 +40,13 @@ public class MapController {
 절두산 순교성지
 양화진 외국인선교사묘원
 광흥창터
-  		              """;
-  @GetMapping("/")
-  public String map_page(Model model)
+  		              """;*/
+  @RequestMapping("/")
+  public String map_page(@RequestParam(value = "title",required = false) String title , Model model)
   {
+	  if(title==null)
+		  title="성수동";
+	  
 	  List<String> titles=sService.seoulGetTitle();
 	  //System.out.println(titles);
 	  String result="";
@@ -53,7 +60,8 @@ public class MapController {
 		  }
 		  
 		  //Matcher[] m=new Matcher[titles.size()];
-		  
+		  String data=aService.aiChat(title);
+
 		  String[] ss=data.split("\n");
 		  int i=0;
 		  List<String> res=new ArrayList<String>();
