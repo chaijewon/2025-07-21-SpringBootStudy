@@ -14,7 +14,7 @@ public interface SeoulMapper {
   @Select("SELECT title FROM seoultravel")
   public List<String> seoulGetTitle();
   
-  @Select("SELECT no,title,x,y "
+  @Select("SELECT no,title,x,y,image1 "
 		 +"FROM seoultravel "
 		 +"WHERE title=#{title}")
   public SeoulVO seoulData(String title);

@@ -56,6 +56,12 @@ body { margin:0; font-family: Arial, sans-serif; }
   white-space:nowrap;
   box-shadow:0 2px 6px rgba(0,0,0,.25);
 }
+
+p{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 </style>
 </head>
 
@@ -120,6 +126,24 @@ function draw(){
 
 draw();
 </script>
-
+<div style="height: 50px"></div>
+<div class="container">
+  <div class="row">
+   <c:forEach var="vo" items="${list }">
+  
+	    <div class="col-md-4">
+	     <div class="thumbnail">
+	      <a href="#">
+	        <img src="${vo.image1}" alt="Lights" style="width:100%">
+	        <div class="caption">
+	          <p>${vo.title }</p>
+	        </div>
+	      </a>
+	    </div>
+	  </div>
+   
+   </c:forEach>
+  </div>
+</div>
 </body>
 </html>
