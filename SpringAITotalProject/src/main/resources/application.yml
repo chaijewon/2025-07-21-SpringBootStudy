@@ -14,7 +14,7 @@ spring:
   ai:
    google:
      genai:
-      api-key: 
+      api-key:
 mybatis:
    type-aliases-package: com.sist.web.vo
    mapper-locations: mybatis/mapper/*.xml  

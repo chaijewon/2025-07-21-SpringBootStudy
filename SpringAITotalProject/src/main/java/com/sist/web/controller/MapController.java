@@ -99,6 +99,6 @@ public class MapController {
 	  }catch(Exception ex) {
 		  ex.printStackTrace();
 	  }
-	  return "map";
+	  return "map2";
   }
 }

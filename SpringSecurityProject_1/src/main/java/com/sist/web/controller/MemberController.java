@@ -60,4 +60,22 @@ public class MemberController {
    public String login() {
 	   return "login";
    }
+   
+   @GetMapping("/member")
+   public String memberhome() {
+	   return "member/home";
+   }
+   @GetMapping("/member/user")
+   public String memberuser() {
+	   return "member/user";
+   }
+   @GetMapping("/member/admin")
+   public String memberadmin() {
+	   return "member/admin";
+   }
+   @GetMapping("/member/login_form")
+   public String memberlogin() {
+	   return "member/login";
+   }
+ 
 }
