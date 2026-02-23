@@ -1,0 +1,43 @@
+#port => default 8080 => 보안 설정(AWS) : port 허용 
+# 8080 / 1521 / 3306 (MySql , MariaDB) 
+# MVC 설정 
+spring:
+  mvc:
+   view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+  datasource:
+     url: jdbc:oracle:thin:@//localhost:1521/XE
+     username: hr
+     password: happy
+     driver-class-name: oracle.jdbc.OracleDriver
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id: 8d0ca6f1f0a768b4b60dd64d07c8c531
+            client-secret: ""   # 카카오는 secret 없음
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            authorization-grant-type: authorization_code
+            scope:
+                - profile_nickname
+                
+            client-name: Kakao
+        provider:
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-name-attribute: id
+mybatis:
+  type-aliases-package: com.sist.web.vo
+  mapper-locations: mybatis/mapper/*.xml
+# 프로시저 / 트리거 / 함수 
+# JPA => JOIN => CRUD 
+# WebSocket 설정 / Kafka설정 / MSA 설정 
+# Security : 람다식 
+logging:
+  level:
+    org.springframework.security: DEBUG
+

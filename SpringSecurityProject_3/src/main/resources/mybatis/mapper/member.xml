@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sist.web.jwt.MemberMapper">
+
+    <select id="findByKakaoId" resultType="com.sist.web.jwt.MemberVO">
+        SELECT * FROM MEMBER2 WHERE KAKAO_ID = #{kakaoId}
+    </select>
+
+    <insert id="insertKakaoMember">
+        INSERT INTO MEMBER2 (
+            ID, KAKAO_ID, NICKNAME, ROLE
+        ) VALUES (
+            MEMBER_SEQ.NEXTVAL,
+            #{kakaoId},
+            #{nickname},
+            'ROLE_USER'
+        )
+    </insert>
+
+</mapper>
